@@ -232,14 +232,87 @@ footer{padding:4rem 4rem 2.5rem;background:var(--dark);color:#fff;border-top:1px
 .fb-leg a:hover{color:rgba(255,255,255,.45)}
 
 @media(max-width:900px){
-  nav,nav.slim{padding:1.1rem 1.5rem}.nav-links{display:none}
-  .sec{padding:5rem 1.5rem}
-  .hero-content,.std-inner,.partners,footer{padding-left:1.5rem;padding-right:1.5rem}
-  .why-two,.how-bottom,.spon-layout,.spk-layout,.ft{grid-template-columns:1fr;gap:2.5rem}
-  .how-cards,.what-cards{grid-template-columns:1fr 1fr}
-  .spk-l,.spk-r{padding:2.5rem 1.5rem}
-  footer{padding:3rem 1.5rem 2rem}
+  /* NAV */
+  nav,nav.slim{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  
+  /* HERO */
+  .hero-content{padding:0 1.2rem 2.5rem}
+  .hero-date{font-size:clamp(3.5rem,18vw,7rem)}
+  .hero-sub{flex-direction:column;gap:.8rem;align-items:flex-start}
+  
+  /* SECTIONS */
+  .sec{padding:4rem 1.2rem}
+  .sec-h{font-size:clamp(2.5rem,10vw,4rem)}
+  
+  /* GRIDS → single column */
+  .why-two,.how-bottom,.spon-layout,.spk-layout,.ft{grid-template-columns:1fr;gap:2rem}
+  .how-cards,.what-cards{grid-template-columns:1fr}
+  .spk-l,.spk-r{padding:2rem 1.2rem}
+  
+  /* PERSONALITIES GRID → 1 column on small, 2 on medium */
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr 1fr!important}
+  
+  /* TALKS GRID */
+  [style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr!important}
+  
+  /* SOCIAL GRID → 2 columns */
+  [style*="repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
+  
+  /* SAVE THE DATE */
+  .std-inner{padding:5rem 1.2rem}
+  .std-date{font-size:clamp(4rem,20vw,8rem)}
+  .std-event{font-size:clamp(1.5rem,6vw,2.5rem)}
+  .std-btns{flex-direction:column;align-items:center}
+  .std-btns a,.std-btns button,.std-btns div{width:100%;text-align:center;justify-content:center}
+  
+  /* HSTRIP */
+  .hs-i{width:260px;height:180px}
+  
+  /* FLOATING SIDEBAR → hide on mobile */
+  [style*="position:fixed;right:0;top:50%"]{display:none!important}
+  
+  /* FOOTER */
+  footer{padding:3rem 1.2rem 2rem}
   .ft{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+  
+  /* PARTNERS */
+  .partners{padding:2.5rem 1.2rem}
+  .p-row{flex-direction:column}
+  .p-item{border-right:none!important;border-bottom:1px solid var(--border)}
+  
+  /* COUNTDOWN */
+  .cd-block{padding:.8rem 1rem;min-width:60px}
+  .cd-n{font-size:clamp(2rem,8vw,3.5rem)}
+  
+  /* MODALS */
+  #impressum-modal > div,#datenschutz-modal > div{padding:2rem 1.2rem;margin:1rem}
+  
+  /* ALTAUSSEE SECTION */
+  [style*="padding:5rem 4rem 8rem"]{padding:3rem 1.2rem 4rem!important}
+  [style*="padding:6rem 4rem"]{padding:3rem 1.2rem!important}
+  
+  /* SPONSOR */
+  .spon-sec .sec{padding:4rem 1.2rem}
+  
+  /* TRIPLE TAGLINE → stack */
+  [style*="repeat(3,1fr)"][style*="border"]{grid-template-columns:1fr!important}
+  
+  /* BUTTONS */
+  .btn-r,.btn-g,.btn-light,.btn-ghost{width:100%;text-align:center;display:block}
+
+  /* HAMBURGER MENU */  
+  .ham{display:flex!important}
+}
+
+@media(max-width:480px){
+  .hero-date{font-size:clamp(3rem,15vw,5rem)}
+  .sec-h{font-size:clamp(2rem,9vw,3rem)}
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+  [style*="repeat(4,1fr)"]{grid-template-columns:1fr!important}
+  .cd-block{padding:.6rem .8rem;min-width:50px}
+  .cd-sep{font-size:1.5rem}
 }
 </style>
 </head>
@@ -259,6 +332,27 @@ footer{padding:4rem 4rem 2.5rem;background:var(--dark);color:#fff;border-top:1px
     <li><a href="#social">Social</a></li>
     <li><a href="#sponsor">Sponsor</a></li>
   </ul>
+  <!-- HAMBURGER -->
+  <button class="ham" onclick="toggleMobileNav()" 
+    style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem"
+    id="ham-btn">
+    <span style="width:24px;height:2px;background:var(--text);display:block;transition:all .3s" id="h1"></span>
+    <span style="width:24px;height:2px;background:var(--text);display:block;transition:all .3s" id="h2"></span>
+    <span style="width:24px;height:2px;background:var(--text);display:block;transition:all .3s" id="h3"></span>
+  </button>
+  <!-- MOBILE NAV -->
+  <div id="mob-nav" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--w);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem">
+    <button onclick="toggleMobileNav()" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text)">✕</button>
+    <a href="#why" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">Why<span style="color:var(--red)">?</span></a>
+    <a href="#how" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">How<span style="color:var(--red)">?</span></a>
+    <a href="#what" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">What<span style="color:var(--red)">?</span></a>
+    <a href="#speaker" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">Speaker</a>
+    <a href="#tickets" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">Tickets</a>
+    <a href="#altaussee" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">About</a>
+    <a href="#social" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">Social</a>
+    <a href="#sponsor" onclick="toggleMobileNav()" style="font-family:var(--display);font-size:3rem;color:var(--text);text-decoration:none">Sponsor</a>
+    <a href="#std" onclick="toggleMobileNav()" style="font-family:var(--mono);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;padding:1rem 2rem;text-decoration:none">Save the Date</a>
+  </div>
   <div style="position:relative;display:inline-block" id="std-nav-wrap">
   <button onclick="toggleStdMenu()" 
     style="display:flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:.7rem 1.4rem;border:none;cursor:none"
@@ -1029,6 +1123,19 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
+
+function toggleMobileNav() {
+  const nav = document.getElementById('mob-nav');
+  const h1 = document.getElementById('h1');
+  const h2 = document.getElementById('h2');
+  const h3 = document.getElementById('h3');
+  const isOpen = nav.style.display === 'flex';
+  nav.style.display = isOpen ? 'none' : 'flex';
+  h1.style.transform = isOpen ? 'none' : 'rotate(45deg) translate(5px,5px)';
+  h2.style.opacity = isOpen ? '1' : '0';
+  h3.style.transform = isOpen ? 'none' : 'rotate(-45deg) translate(5px,-5px)';
+}
 
 function toggleStdMenu() {
   const m = document.getElementById('std-nav-menu');
